@@ -1,172 +1,261 @@
-/* Figma: Create Game Session - exact colors and spacing */
+/* Start Game - fluid scaling per spec (8px scale, clamp, rem) */
 .create-game {
+  /* 8px spacing scale: 8, 16, 24, 32, 48, 64 → fluid via clamp */
+  --space-1: clamp(0.5rem, 1.2vw, 0.5rem);
+  --space-2: clamp(0.75rem, 2vw, 1rem);
+  --space-3: clamp(1rem, 2.5vw, 1.5rem);
+  --space-4: clamp(1.25rem, 3vw, 2rem);
+  --space-5: clamp(1.75rem, 4vw, 3rem);
+  --space-6: clamp(2rem, 5vw, 4rem);
+  /* Cards: border-radius 16px */
+  --radius-card: 1rem;
+  --radius-input: clamp(0.5rem, 1.5vw, 0.75rem);
+  /* clamp() for typography */
+  --text-sm: clamp(0.8125rem, 1.6vw, 0.9375rem);
+  --text-base: clamp(0.875rem, 1.8vw, 1rem);
+  --text-lg: clamp(1rem, 2vw, 1.125rem);
+  --text-xl: clamp(1.0625rem, 2.5vw, 1.25rem);
+  --text-2xl: clamp(1.25rem, 3.5vw, 1.5rem);
+  --text-3xl: clamp(1.5rem, 4.5vw, 2rem);
   min-height: 100vh;
-  padding: 40px 24px 32px;
-  background: #10172A;
+  
+  
+  padding: var(--space-4) var(--space-3) var(--space-6);
+  background: radial-gradient(circle at top, #0f172a 0%, #020617 100%);
   display: flex;
   flex-direction: column;
   align-items: center;
+  box-sizing: border-box;
 }
 
-.create-game__card {
-  width: 100%;
-  max-width: 720px;
+.create-game__container {
+  
+  width: min(95%, 87.5rem);
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: var(--space-3);
+  /* مساحة فاصلة فوق حاوية إنشاء اللعبة لِفصلها عن جزء اختيار الفئات */
+  margin-top: var(--space-6);
+  
 }
 
 .create-game__header {
   text-align: center;
-  margin-bottom: 32px;
 }
 
 .create-game__title {
   margin: 0;
-  font-size: 2rem;
-  font-weight: 700;
+  font-size: var(--text-3xl);
+  font-weight: bold;
   color: #ffffff;
 }
 
 .create-game__game-name-wrap {
+  display: flex;
+  justify-content: center;
   width: 100%;
-  margin-bottom: 32px;
 }
 
 .create-game__game-name {
-  width: 100%;
-  padding: 14px 20px;
-  font-size: 1rem;
+  width: min(100%, 20rem);
+  height: clamp(2.5rem, 6vw, 3rem);
+  padding: 0 var(--space-4);
+  font-size: var(--text-base);
   font-family: inherit;
-  border: none;
-  border-radius: 12px;
-  background: #E0E0E0;
-  color: #1a1a1a;
+  border: 0.125rem solid transparent;
+  border-radius: var(--radius-input);
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(0.5rem);
+  color: #ffffff;
+  text-align: center;
+  box-shadow: 0 0.25rem 1rem rgba(0, 0, 0, 0.2);
+  box-sizing: border-box;
+  transition: background 0.2s, box-shadow 0.2s;
 }
 
 .create-game__game-name::placeholder {
-  color: #A0A0A0;
+  color: rgba(255, 255, 255, 0.5);
 }
 
 .create-game__game-name:focus {
   outline: none;
-  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 0.25rem 1.25rem rgba(0, 0, 0, 0.3);
 }
 
+.create-game__game-name--invalid {
+  border: 0.125rem solid #ef4444;
+  box-shadow: 0 0 0 0.125rem rgba(239, 68, 68, 0.3);
+}
+
+/* Team panels: vertical stack on mobile */
 .create-game__teams {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 32px;
+  grid-template-columns: repeat(auto-fit, minmax(min(20rem, 100%), 1fr));
+  gap: var(--space-4);
+  justify-content: center;
   width: 100%;
-  margin-bottom: 40px;
+  max-width: 100%;
 }
 
+/* Team cards: border-radius 16px, subtle shadow, hover glow */
 .create-game__team {
+  min-width: 0;
+  padding: var(--space-4);
+  border-radius: var(--radius-card);
+  background: rgba(14, 36, 53, 0.6);
+  backdrop-filter: blur(1rem);
+  border: 0.0625rem solid rgba(255, 255, 255, 0.06);
+  box-shadow: 0 0.5rem 2rem rgba(0, 0, 0, 0.3);
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: var(--space-3);
+  box-sizing: border-box;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.2s ease;
+}
+
+.create-game__team:hover {
+  box-shadow: 0 0.5rem 2.25rem rgba(0, 0, 0, 0.35);
+}
+
+.create-game__team--one {
+  border-color: rgba(23, 193, 232, 0.25);
+}
+
+.create-game__team--one:hover {
+  box-shadow: 0 0.5rem 2.25rem rgba(23, 193, 232, 0.15);
+}
+
+.create-game__team--two {
+  border-color: rgba(255, 193, 7, 0.25);
+}
+
+.create-game__team--two:hover {
+  box-shadow: 0 0.5rem 2.25rem rgba(255, 193, 7, 0.15);
 }
 
 .create-game__team-header {
   display: flex;
   align-items: center;
-  gap: 10px;
-  flex-direction: row-reverse;
+  justify-content: center;
+  gap: var(--space-2);
 }
 
 .create-game__team-dot {
-  width: 14px;
-  height: 14px;
+  width: clamp(1rem, 2.5vw, 1.25rem);
+  height: clamp(1rem, 2.5vw, 1.25rem);
   border-radius: 50%;
   flex-shrink: 0;
 }
 
 .create-game__team-dot--one {
-  background: #00BFFF;
+  background: #17c1e8;
+  box-shadow: 0 0 0.75rem rgba(23, 193, 232, 0.5);
 }
 
 .create-game__team-dot--two {
-  background: #FFD700;
+  background: #ffc107;
+  box-shadow: 0 0 0.75rem rgba(255, 193, 7, 0.5);
 }
 
 .create-game__team-label {
   margin: 0;
-  font-size: 1.125rem;
-  font-weight: 600;
+  
+
+  font-size: var(--text-xl);
+  font-weight: bold;
   color: #ffffff;
 }
 
 .create-game__team-input {
   width: 100%;
-  padding: 14px 20px;
-  font-size: 1rem;
+  height: clamp(2.5rem, 6vw, 3rem);
+  padding: 0 var(--space-4);
+  font-size: var(--text-base);
   font-family: inherit;
-  border: none;
-  border-radius: 12px;
-  background: #E0E0E0;
-  color: #1a1a1a;
+  border: 0.0625rem solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-input);
+  background: rgba(255, 255, 255, 0.06);
+  color: #ffffff;
+  text-align: right;
   box-sizing: border-box;
+  transition: background 0.2s, border-color 0.2s;
 }
 
 .create-game__team-input::placeholder {
-  color: #A0A0A0;
+  color: rgba(255, 255, 255, 0.45);
 }
 
 .create-game__team-input:focus {
   outline: none;
-  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.create-game__team-input--invalid {
+  border-color: #ef4444;
+  box-shadow: 0 0 0 0.125rem rgba(239, 68, 68, 0.3);
+}
+
+.create-game__team--invalid {
+  border-color: rgba(239, 68, 68, 0.6);
+  box-shadow: 0 0 0 0.125rem rgba(239, 68, 68, 0.25);
 }
 
 .create-game__helpers-text {
   margin: 0;
-  font-size: 0.9375rem;
-  color: #ffffff;
+  text-align: center;
+  font-size: var(--text-base);
+  color: rgba(255, 255, 255, 0.9);
 }
 
 .create-game__actions {
   display: flex;
-  flex-direction: row;
-  gap: 16px;
-  padding: 16px;
-  border: 2px dashed #8A2BE2;
-  border-radius: 12px;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding-top: var(--space-1);
 }
 
+/* Start button: disabled gray, active orange gradient, hover glow + scale */
 .create-game__btn {
-  padding: 14px 48px;
-  font-size: 1.125rem;
-  font-weight: 700;
+  width: min(100%, 18rem);
+  height: clamp(2.75rem, 7vw, 3.25rem);
+  padding: 0 var(--space-4);
+  font-size: var(--text-lg);
+  font-weight: bold;
   font-family: inherit;
   border: none;
-  border-radius: 12px;
+  border-radius: clamp(1.25rem, 4vw, 2rem);
   color: #ffffff;
   cursor: pointer;
-  transition: opacity 0.2s, transform 0.05s;
+  transition: background 0.3s ease, filter 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.create-game__btn:hover {
-  opacity: 0.9;
+.create-game__btn--disabled {
+  background: #6b7280;
+  cursor: not-allowed;
+  opacity: 0.85;
 }
 
-.create-game__btn:active {
+.create-game__btn--enabled {
+  background: linear-gradient(135deg, #ff8a00 0%, #ffb347 100%);
+  cursor: pointer;
+  box-shadow: 0 0.25rem 1.5rem rgba(255, 138, 0, 0.4);
+}
+
+.create-game__btn--enabled:hover {
+  filter: brightness(1.08);
+  transform: scale(1.02);
+  box-shadow: 0 0.375rem 1.75rem rgba(255, 138, 0, 0.5);
+}
+
+.create-game__btn--enabled:active {
   transform: scale(0.98);
 }
 
 .create-game__btn:focus-visible {
-  outline: 2px solid #fff;
-  outline-offset: 2px;
-}
-
-.create-game__btn--orange {
-  background: #FFA500;
-}
-
-.create-game__btn--purple {
-  background: #8A2BE2;
-}
-
-@media (max-width: 600px) {
-  .create-game__teams {
-    grid-template-columns: 1fr;
-  }
+  outline: 0.125rem solid #fff;
+  outline-offset: 0.125rem;
 }

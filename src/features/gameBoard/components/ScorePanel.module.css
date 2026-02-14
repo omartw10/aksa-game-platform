@@ -1,0 +1,66 @@
+.panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(0.5rem, 1.5vw, 0.75rem);
+  padding: clamp(1rem, 3vw, 1.5rem);
+  border-radius: 1rem;
+  background: rgba(14, 36, 53, 0.6);
+  backdrop-filter: blur(0.5rem);
+  border: 0.0625rem solid rgba(255, 255, 255, 0.08);
+  min-width: 0;
+  flex: 1;
+}
+
+.teamName {
+  font-size: clamp(0.9375rem, 1.8vw, 1.0625rem);
+  font-weight: bold;
+  color: rgba(255, 255, 255, 0.9);
+  text-align: center;
+}
+
+.scoreRow {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.75rem, 2vw, 1rem);
+}
+
+.score {
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: bold;
+  font-variant-numeric: tabular-nums;
+  color: #facc15;
+  min-width: clamp(3rem, 8vw, 5rem);
+  text-align: center;
+}
+
+.scoreBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: clamp(2.25rem, 6vw, 3rem);
+  height: clamp(2.25rem, 6vw, 3rem);
+  padding: 0;
+  border: 0.125rem solid rgba(255, 255, 255, 0.2);
+  border-radius: 0.5rem;
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s, transform 0.15s;
+}
+
+.scoreBtn:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.scoreBtn:active {
+  transform: scale(0.95);
+}
+
+.scoreBtn:focus-visible {
+  outline: 0.125rem solid #facc15;
+  outline-offset: 0.125rem;
+}

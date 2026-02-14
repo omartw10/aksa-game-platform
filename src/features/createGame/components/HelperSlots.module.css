@@ -1,0 +1,14 @@
+/* Helper grid: proportional cells for fluid card scaling */
+.slots {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(0.5rem, 2vw, 1rem);
+  width: 100%;
+}
+
+/* Mobile: 2x2 grid */
+@media (max-width: 480px) {
+  .slots {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

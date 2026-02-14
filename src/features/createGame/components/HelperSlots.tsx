@@ -1,22 +1,23 @@
-import "./HelperSlots.css";
+import { HELPERS } from "../helpersData";
+import { HelperCard } from "./HelperCard";
+import styles from "./HelperSlots.module.css";
 
-const SLOT_COUNT = 4;
 const MAX_SELECTED = 3;
 
 type HelperSlotsProps = {
   selected: boolean[];
   onToggle: (index: number) => void;
-  accentColor: string;
+  teamVariant: "one" | "two";
   "data-testid"?: string;
 };
 
 export function HelperSlots({
   selected,
   onToggle,
-  accentColor,
+  teamVariant,
   "data-testid": testId = "helper-slots",
 }: HelperSlotsProps) {
-  const handleClick = (index: number) => {
+  const handleToggle = (index: number) => {
     const isSelected = selected[index];
     if (isSelected) {
       onToggle(index);
@@ -26,20 +27,18 @@ export function HelperSlots({
   };
 
   return (
-    <div className="helper-slots" data-testid={testId}>
-      {Array.from({ length: SLOT_COUNT }, (_, i) => (
-        <button
-          key={i}
-          type="button"
-          className={`helper-slots__box ${selected[i] ? "helper-slots__box--selected" : ""}`}
-          style={
-            selected[i]
-              ? ({ "--helper-accent": accentColor } as React.CSSProperties)
-              : undefined
-          }
-          onClick={() => handleClick(i)}
-          aria-pressed={selected[i]}
-          aria-label={`وسيلة مساعدة ${i + 1}`}
+    <div className={styles.slots} data-testid={testId}>
+      {HELPERS.map((helper, index) => (
+        <HelperCard
+          key={helper.id}
+          helperId={helper.id}
+          icon={helper.icon}
+          name={helper.name}
+          description={helper.description}
+          selected={selected[index]}
+          teamVariant={teamVariant}
+          onToggle={() => handleToggle(index)}
+          data-testid={`${testId}-${index}`}
         />
       ))}
     </div>

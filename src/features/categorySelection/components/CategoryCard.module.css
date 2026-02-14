@@ -1,0 +1,64 @@
+.card {
+  width: 170px;
+  border-radius: 14px;
+  background: rgba(14, 36, 53, 0.7);
+  border: 2px solid transparent;
+  transition: transform 0.2s ease, border 0.2s ease;
+}
+
+
+
+.card:hover {
+  transform: scale(1.05);
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.4);
+}
+
+.cardSelected {
+  border: 2px solid #ff8a00;
+  box-shadow: 0 0 15px rgba(255, 138, 0, 0.4);
+}
+
+
+.cardSelected:hover {
+  box-shadow: 0 0 1.25rem rgba(255, 138, 0, 0.5);
+}
+
+.card:focus-visible {
+  outline: 0.125rem solid #ff8a00;
+  outline-offset: 0.125rem;
+}
+
+.imageWrap {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.card:hover .image {
+  transform: scale(1.05);
+}
+
+.title {
+  margin: 0;
+  padding: clamp(0.75rem, 2vw, 1rem);
+  font-size: clamp(0.9rem, 1.5vw, 1rem);
+  font-weight: bold;
+  color: #ffffff;
+  text-align: center;
+}
+
+.questionCount {
+  padding: 0 clamp(0.75rem, 2vw, 1rem) clamp(0.75rem, 2vw, 1rem);
+  font-size: clamp(0.75rem, 1.5vw, 0.875rem);
+  color: rgba(255, 255, 255, 0.6);
+  text-align: center;
+}
