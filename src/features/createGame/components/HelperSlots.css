@@ -1,0 +1,35 @@
+.helper-slots {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.helper-slots__box {
+  width: 56px;
+  height: 56px;
+  padding: 0;
+  border-radius: 12px;
+  background: #CCCCCC;
+  border: 2px solid #999999;
+  cursor: pointer;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.helper-slots__box:hover {
+  border-color: #777;
+}
+
+.helper-slots__box--selected {
+  border: 2px dashed var(--helper-accent, #00BFFF);
+  background: #CCCCCC;
+}
+
+.helper-slots__box--selected:hover {
+  box-shadow: 0 0 0 1px var(--helper-accent);
+}
+
+.helper-slots__box:focus-visible {
+  outline: 2px solid var(--helper-accent);
+  outline-offset: 2px;
+}
