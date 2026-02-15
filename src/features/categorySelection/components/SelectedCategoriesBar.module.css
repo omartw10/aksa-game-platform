@@ -13,6 +13,35 @@
   z-index: 100;
 }
 
+.create-game__remove-btn {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+
+  width: 22px;
+  aspect-ratio: 1 / 1;   /* هذا يضمن الدائرة 100% */
+
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+
+  background: rgba(255, 80, 80, 0.9);
+  color: #fff;
+
+  display: grid;
+  place-items: center;
+
+  font-size: 14px;
+  line-height: 1;
+
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.create-game__remove-btn:hover {
+  background: red;
+  transform: scale(1.1);
+}
 
 
 

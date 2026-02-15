@@ -6,6 +6,7 @@ import styles from "./CategorySelectionPage.module.css";
 type CategorySelectionPageProps = {
   selected: Category[];
   onChange: (categories: Category[]) => void;
+  hideSidebar?: boolean;
 };
 
 const MAX_SELECTED = 6;
@@ -13,8 +14,8 @@ const MAX_SELECTED = 6;
 export default function CategorySelectionPage({
   selected,
   onChange,
+  hideSidebar = false,
 }: CategorySelectionPageProps) {
-
   const selectedIds = new Set(selected.map((c) => c.id));
 
   const handleToggle = (category: Category) => {
@@ -38,18 +39,22 @@ export default function CategorySelectionPage({
     onChange(next);
   };
 
-  // Define a type that includes possible grouping properties
+  // تجميع الفئات
   type GroupableCategory = Category & {
     group?: string;
     category?: string;
     parent?: string;
   };
 
-  // تجميع الفئات بحسب مفتاح المجموعة إن وجد (باستخدام CATEGORIES)
   const groups = Array.from(
     CATEGORIES.reduce((map, cat) => {
       const groupCat = cat as GroupableCategory;
-      const key = groupCat.group ?? groupCat.category ?? groupCat.parent ?? "عام";
+      const key =
+        groupCat.group ??
+        groupCat.category ??
+        groupCat.parent ??
+        "عام";
+
       if (!map.has(key)) map.set(key, [] as Category[]);
       map.get(key)!.push(cat);
       return map;
@@ -58,11 +63,24 @@ export default function CategorySelectionPage({
 
   return (
     <div className={styles.page}>
-      <div className={styles.container}>
 
+      {/* Sidebar */}
+      <div
+        className={`${styles.selectedSidebar} ${
+          hideSidebar ? styles.hidden : ""
+        }`}
+      >
+        <SelectedCategoriesBar
+          selected={selected}
+          onRemove={handleRemove}
+          maxCount={MAX_SELECTED}
+        />
+      </div>
+
+      {/* Content */}
+      <div className={styles.container}>
         <h2 className={styles.title}>اختر الفئات</h2>
 
-        {/* عرض مجموعات الفئات كل مجموعة داخل حاوية خاصة */}
         <div className={styles.grid}>
           {groups.map(([groupName, cats]) => (
             <section key={groupName} className={styles.groupContainer}>
@@ -81,12 +99,6 @@ export default function CategorySelectionPage({
             </section>
           ))}
         </div>
-
-        <SelectedCategoriesBar
-          selected={selected}
-          onRemove={handleRemove}
-          maxCount={MAX_SELECTED}
-        />
       </div>
     </div>
   );

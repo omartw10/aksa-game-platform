@@ -1,0 +1,97 @@
+.helperBtn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #17375a;
+  border: none;
+  border-radius: 10px;
+  color: #ffd54a;
+  font-weight: bold;
+  font-size: 0.92rem;
+  padding: 0.5em 0.7em;
+  min-width: 70px;
+  min-height: 54px;
+  cursor: pointer;
+  transition: all 0.18s;
+  box-shadow: 0 0 10px rgba(0, 140, 255, 0.13);
+  margin: 0 0.2em;
+}
+
+.helperBtn span {
+  margin-top: 0.2em;
+  font-size: 0.93em;
+}
+
+.helperBtn:hover:not(:disabled) {
+  background: #1d4673;
+  color: #fffbe6;
+  transform: translateY(-2px) scale(1.04);
+}
+
+.helperUsed {
+  background: #0b1a2a !important;
+  color: #4b6b8a !important;
+  opacity: 0.6;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+.bar {
+  height: 110px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 3rem;
+
+  background: linear-gradient(
+    180deg,
+    rgba(4, 12, 25, 0.95),
+    rgba(2, 8, 18, 0.98)
+  );
+
+  border-top: 1px solid rgba(0, 120, 255, 0.2);
+}
+
+
+
+/* نقاط الفريق */
+.scorePanel {
+  width: 200px;
+  text-align: center;
+  color: white;
+}
+
+.scoreControls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.scoreControls button {
+  background: #122f45;
+  border: none;
+  color: white;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.scoreControls button:hover {
+  background: #1e4f75;
+}
+
+/* المنتصف */
+.helpersCenter {
+  display: flex;
+  gap: 4rem;
+  align-items: center;
+}
+
+.teamHelpers {
+  display: flex;
+  gap: 1rem;
+}

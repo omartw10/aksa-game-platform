@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { HelperSlots } from "./components/HelperSlots";
 import CategorySelectionPage from "../categorySelection/CategorySelectionPage";
 import "./CreateGamePage.css";
 import type { Category } from "../categorySelection/categoriesData";
+
 
 const TEAM_ONE_LABEL = "الفريق الأول";
 const TEAM_TWO_LABEL = "الفريق الثاني";
@@ -22,6 +23,9 @@ function toggleHelper(helpers: boolean[], index: number): boolean[] {
 }
 
 export default function CreateGamePage() {
+  // مرجع لقسم اختيار الفئات
+  const categorySectionRef = useRef<HTMLDivElement>(null);
+  const [showSidebar, setShowSidebar] = useState(true);
   const navigate = useNavigate();
 
   const [gameName, setGameName] = useState("");
@@ -31,6 +35,7 @@ export default function CreateGamePage() {
   const [helpersTwo, setHelpersTwo] = useState(createInitialHelpers);
   const [showValidation, setShowValidation] = useState(false);
   const [selectedCategories, setSelectedCategories] = useState<Category[]>([]);
+  // Removed unused hideSidebar state
 
   const isReady =
     gameName.trim() !== "" &&
@@ -47,15 +52,51 @@ export default function CreateGamePage() {
     }
 
     setShowValidation(false);
-    navigate("/game");
+    // استخراج وسائل المساعدة المختارة لكل فريق
+    const helpersA = helpersOne
+      .map((v, i) => (v ? i : -1))
+      .filter((i) => i !== -1);
+    const helpersB = helpersTwo
+      .map((v, i) => (v ? i : -1))
+      .filter((i) => i !== -1);
+
+    navigate("/game", {
+      state: {
+        teamAName,
+        teamBName,
+        helpersA,
+        helpersB,
+      },
+    });
+
   };
+
+  // Removed useEffect related to hideSidebar since it is unused
+
+  // مراقبة التمرير لإظهار/إخفاء الشريط الجانبي
+  useEffect(() => {
+    function handleScroll() {
+      if (!categorySectionRef.current) return;
+      const rect = categorySectionRef.current.getBoundingClientRect();
+      // إذا كان القسم ظاهرًا في أعلى الشاشة (مثلاً أعلى 60%) نظهر الشريط
+      setShowSidebar(rect.bottom > window.innerHeight * 0.3);
+    }
+    window.addEventListener("scroll", handleScroll);
+    handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
     <div className="create-game">
-      <CategorySelectionPage
-        selected={selectedCategories}
-        onChange={setSelectedCategories}
-      />
+      {/* قسم اختيار الفئات */}
+      <div ref={categorySectionRef}>
+        <CategorySelectionPage
+          selected={selectedCategories}
+          onChange={setSelectedCategories}
+          hideSidebar={!showSidebar}
+        />
+      </div>
+
       <div className="create-game__container">
         <header className="create-game__header">
           <h1 className="create-game__title">إنشاء لعبة جديدة</h1>
@@ -154,6 +195,41 @@ export default function CreateGamePage() {
 
         {/* اختيار الفئات يظهر في نفس الصفحة */}
 
+        {/* شريط الفئات المختارة */}
+        {selectedCategories.length > 0 && (
+          <div className="create-game__selected-bar">
+            {selectedCategories.map((cat) => (
+              <div key={cat.id} className="create-game__selected-card">
+                
+                <button
+                  type="button"
+                  className="create-game__remove-btn"
+                  onClick={() =>
+                    setSelectedCategories((prev) =>
+                      prev.filter((c) => c.id !== cat.id)
+                    )
+                  }
+                >
+                  
+                </button>
+
+                <img
+                  src={cat.image}
+                  alt={cat.title}
+                  className="create-game__selected-img"
+                />
+
+                <span className="create-game__selected-title">
+                  {cat.title}
+                </span>
+
+              </div>
+            ))}
+
+          </div>
+        )}
+
+
         {/* زر البدء */}
         <div className="create-game__actions">
           <button
@@ -165,6 +241,8 @@ export default function CreateGamePage() {
             }`}
             onClick={handleStart}
           >
+            
+
             البدء
           </button>
         </div>

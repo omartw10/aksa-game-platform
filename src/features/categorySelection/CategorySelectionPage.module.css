@@ -130,3 +130,37 @@
   justify-content: flex-start; /* نجعلها تبدأ من اليسار داخل الحاوية */
   align-items: flex-start;
 }
+
+
+/* الحاوية الجانبية للفئات المختارة */
+:global(.selected-bar-fixed) {
+  position: fixed;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  width: 160px;
+  padding: 1rem;
+  border-radius: 16px 0 0 16px;
+  background: linear-gradient(180deg, rgba(14,36,53,0.95), rgba(14,36,53,0.85));
+  box-shadow: -6px 0 20px rgba(0,0,0,0.6);
+  z-index: 1000;
+}
+
+
+.selectedSidebar {
+  position: fixed;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  transition: all 0.35s ease;
+  opacity: 1;
+  pointer-events: auto;
+  z-index: 50;
+}
+
+.hidden {
+  transform: translate(120%, -50%);
+  opacity: 0;
+  pointer-events: none;
+}
+

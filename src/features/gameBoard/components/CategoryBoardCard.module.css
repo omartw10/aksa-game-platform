@@ -1,0 +1,57 @@
+.card {
+  background: #0d1b2a;
+  border-radius: 10px;
+  padding: 0.5vw 0.5vw 0 0.5vw;
+  margin: 0;
+  box-shadow: 0 0 10px rgba(0,0,0,0.10);
+  display: flex;
+  flex-direction: column;
+  gap: 0.3vw;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+}
+
+.image {
+  width: 100%;
+  height: 5vw;
+  min-height: 48px;
+  max-height: 70px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.title {
+  text-align: center;
+  color: #fff;
+  font-weight: bold;
+  font-size: 0.95em;
+  margin: 0.2em 0 0.1em 0;
+}
+
+.questions {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5rem;
+}
+
+.qBtn {
+  padding: 0.7rem;
+  background: #112d4e;
+  border: none;
+  border-radius: 8px;
+  color: #ffd166;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.qBtn:hover:not(:disabled) {
+  background: #1f4068;
+}
+
+.used {
+  background: #1b263b;
+  color: #555;
+  cursor: not-allowed;
+}
