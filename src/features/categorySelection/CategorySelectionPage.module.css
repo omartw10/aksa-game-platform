@@ -1,12 +1,11 @@
 .container {
   width: min(1200px, 90%);
-  margin: 0 auto;        /* هذا هو المهم */
+  margin: 0 auto; /* هذا هو المهم */
   display: flex;
   flex-direction: column;
-  align-items: center;   /* يخلي كل شيء في المنتصف */
+  align-items: center; /* يخلي كل شيء في المنتصف */
   position: relative;
 }
-
 
 .content {
   flex: 1;
@@ -14,29 +13,35 @@
 
 .grid {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   gap: 1.2rem;
-  justify-content: center; /* center category cards horizontally */
+  width: 100%;
 }
 
-/* جديد: إطار حول كل بطاقة فئة ليجعل الصورة أوضح وأكثر أناقة */
+/* إطار حول بطاقة الفئة داخل خلية الشبكة */
 .cardFrame {
+  width: 100%;
+  box-sizing: border-box;
   border-radius: 12px;
   overflow: hidden;
   padding: 6px; /* سمك الإطار الداخلي */
-  background: linear-gradient(135deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
-  box-shadow: 0 6px 18px rgba(0,0,0,0.5);
-  border: 1px solid rgba(255,255,255,0.06);
-  transition: transform 0.18s ease, box-shadow 0.18s ease;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.03),
+    rgba(255, 255, 255, 0.01)
+  );
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease;
+  display: block;
 }
 
 /* تأثير تحويم بسيط */
 .cardFrame:hover {
   transform: translateY(-6px) scale(1.02);
-  box-shadow: 0 12px 24px rgba(0,0,0,0.6);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.6);
 }
 
 /* تحسين عرض الصور داخل البطاقة (يطبق إذا كان هناك <img> داخل CategoryCard) */
@@ -65,10 +70,8 @@
   text-align: center;
 }
 
-
 @media (max-width: 1100px) {
   .container {
-    
     flex-direction: column;
   }
 }
@@ -76,8 +79,12 @@
 /* add page wrapper styling so the outer div centers the container */
 .page {
   width: 100%;
+  min-height: 100vh;
   display: flex;
   justify-content: center;
+  position: relative;
+  padding: 2rem 0;
+  box-sizing: border-box;
 }
 
 /* حاوية لكل مجموعة فئات */
@@ -91,9 +98,13 @@
   /* شكل بسيط للحاوية */
   padding: 0.75rem;
   border-radius: 12px;
-  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-  border: 1px solid rgba(255,255,255,0.04);
-  box-shadow: 0 4px 10px rgba(0,0,0,0.35);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.02),
+    rgba(255, 255, 255, 0.01)
+  );
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.35);
   position: relative;
 }
 
@@ -119,18 +130,39 @@
   width: 6px;
   border-radius: 4px;
   background: linear-gradient(180deg, #ff8a00, #ffd27a);
-  box-shadow: 0 4px 10px rgba(255,138,0,0.12);
+  box-shadow: 0 4px 10px rgba(255, 138, 0, 0.12);
 }
 
 /* شبكة داخل الكل مجموعة لبطاقات الفئات */
 .groupGrid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.9rem;
-  justify-content: flex-start; /* نجعلها تبدأ من اليسار داخل الحاوية */
-  align-items: flex-start;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr); /* ستة بطاقات بالعرض */
+  gap: 1rem;
+  align-items: start;
+  width: 100%;
 }
 
+/* استجابة: تقليل عدد الأعمدة على الشاشات الأصغر */
+@media (max-width: 1200px) {
+  .groupGrid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+@media (max-width: 900px) {
+  .groupGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media (max-width: 600px) {
+  .groupGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 380px) {
+  .groupGrid {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
 
 /* الحاوية الجانبية للفئات المختارة */
 :global(.selected-bar-fixed) {
@@ -141,11 +173,14 @@
   width: 160px;
   padding: 1rem;
   border-radius: 16px 0 0 16px;
-  background: linear-gradient(180deg, rgba(14,36,53,0.95), rgba(14,36,53,0.85));
-  box-shadow: -6px 0 20px rgba(0,0,0,0.6);
+  background: linear-gradient(
+    180deg,
+    rgba(14, 36, 53, 0.95),
+    rgba(14, 36, 53, 0.85)
+  );
+  box-shadow: -6px 0 20px rgba(0, 0, 0, 0.6);
   z-index: 1000;
 }
-
 
 .selectedSidebar {
   position: fixed;
@@ -163,4 +198,3 @@
   opacity: 0;
   pointer-events: none;
 }
-

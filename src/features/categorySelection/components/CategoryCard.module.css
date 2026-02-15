@@ -1,4 +1,6 @@
 .card {
+  position: relative;
+  overflow: visible; /* نضمن أن الشارة ليست مقطوعة */
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -8,9 +10,6 @@
   height: 100%;
   box-sizing: border-box;
 }
-
-
-
 
 .card:hover {
   transform: scale(1.05);
@@ -22,7 +21,6 @@
   border: 2px solid #ff8a00;
   box-shadow: 0 0 15px rgba(255, 138, 0, 0.4);
 }
-
 
 .cardSelected:hover {
   box-shadow: 0 0 1.25rem rgba(255, 138, 0, 0.5);
@@ -37,18 +35,20 @@
   position: relative;
   aspect-ratio: 16 / 11;
   overflow: hidden;
-  border-radius: 14px ;
+  border-radius: 14px;
   margin-top: 15%; /* نزّل الصورة قليلاً داخل البطاقة */
   flex: 0 0 auto; /* لا ينمو/لا ينكمش ليحافظ على المساحة */
 }
 
 .image {
-  border-radius: 14px ;
+  border-radius: 14px;
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
-  transition: transform 0.28s ease, translate 0.28s ease;
+  transition:
+    transform 0.28s ease,
+    translate 0.28s ease;
   transform: translateY(8px) scale(1); /* تنزيل افتراضي للصورة */
 }
 
@@ -60,7 +60,8 @@
 .title {
   margin: 0;
   /* خفّضنا الحشو السفلي وارتفاع العنوان لتقليل المسافة الفارغة */
-  padding: clamp(0.35rem, 1vw, 0.6rem) clamp(0.5rem, 1.5vw, 0.8rem) clamp(0.25rem, 0.8vw, 0.45rem);
+  padding: clamp(0.35rem, 1vw, 0.6rem) clamp(0.5rem, 1.5vw, 0.8rem)
+    clamp(0.25rem, 0.8vw, 0.45rem);
   font-size: clamp(0.9rem, 1.5vw, 1rem);
   font-weight: bold;
   color: #ffffff;
@@ -83,10 +84,11 @@
   padding: 0.25rem 0.6rem;
   font-size: 0.8rem;
   color: #fff;
-  background: linear-gradient(180deg,#ff8a00,#ffb86b);
+  background: linear-gradient(180deg, #ff8a00, #ffb86b);
   border-radius: 999px;
-  box-shadow: 0 6px 14px rgba(255,138,0,0.18);
+  box-shadow: 0 6px 14px rgba(255, 138, 0, 0.18);
   text-align: center;
   line-height: 1;
-  z-index: 6;
+  z-index: 50; /* أعلى لتبقى فوق كل العناصر */
+  white-space: nowrap;
 }

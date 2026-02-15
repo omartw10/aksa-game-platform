@@ -1,6 +1,5 @@
 import styles from "./BottomGameBar.module.css";
 
-import { HelperSlots } from "../../createGame/components/HelperSlots";
 import { HELPERS } from "../../createGame/helpersData";
 import { useState } from "react";
 

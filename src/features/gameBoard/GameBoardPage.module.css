@@ -1,47 +1,28 @@
 .page {
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   background: radial-gradient(circle at top, #0f172a 0%, #020617 100%);
-  overflow: hidden;
 }
 
-/* الشريط العلوي يأخذ ارتفاعه الطبيعي */
-.page > :first-child {
-  flex-shrink: 0;
-}
 
-/* الشريط السفلي يأخذ ارتفاعه الطبيعي */
-.page > :last-child {
-  flex-shrink: 0;
-}
-
-/* المنتصف يأخذ كل المساحة المتبقية */
+/* المحتوى الأوسط */
 .content {
-  flex: 1 1 auto;
+  flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0;
-  min-height: 0;
-  overflow: visible;
-  width: 100vw;
-  height: calc(100vh - 70px - 120px);
-  box-sizing: border-box;
+  padding: clamp(10px, 2vw, 24px);
 }
 
+/* إطار لوحة اللعب */
 .gameBoardFrame {
-  background: rgba(10, 24, 40, 0.98);
+  width: 100%;
+ 
+  max-width: 1400px;
   border: 3px solid #2196f3;
   border-radius: 22px;
-  box-shadow: 0 0 32px 0 rgba(33,150,243,0.13);
-  padding: 2vw 2vw;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 60vw;
-  max-width: 900px;
-  height: 60vh;
-  min-height: 340px;
-  min-width: 320px;
+  padding: clamp(12px, 2vw, 24px);
+  background: rgba(10, 24, 40, 0.98);
+  box-shadow: 0 0 32px rgba(33, 150, 243, 0.15);
 }
