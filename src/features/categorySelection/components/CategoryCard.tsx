@@ -9,13 +9,7 @@ type CategoryCardProps = {
 
 export function CategoryCard({ category, selected, onToggle }: CategoryCardProps) {
   return (
-    <button
-      type="button"
-      className={`${styles.card} ${selected ? styles.cardSelected : ""}`}
-      onClick={onToggle}
-      aria-pressed={selected}
-      aria-label={category.title}
-    >
+    <button className={`${styles.card} ${selected ? styles.cardSelected : ""}`} onClick={onToggle}>
       <div className={styles.imageWrap}>
         <img
           src={category.image}
@@ -24,8 +18,12 @@ export function CategoryCard({ category, selected, onToggle }: CategoryCardProps
           loading="lazy"
         />
       </div>
+
+      <div className={styles.questionCount}>
+        {category.questionCount ?? (category as { questions?: number }).questions ?? (category as { remaining?: number }).remaining ?? 0} لعبة متبقية
+      </div>
+
       <h3 className={styles.title}>{category.title}</h3>
-      <span className={styles.questionCount}>{category.questionCount} سؤال</span>
     </button>
   );
 }

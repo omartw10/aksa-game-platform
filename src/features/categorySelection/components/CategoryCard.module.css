@@ -1,5 +1,12 @@
 .card {
-  width: 170px;
+  width: 160px;
+  position: relative; /* لتموضع الشارة داخل البطاقة */
+  display: flex;
+  padding: 5px;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  height: 100%; /* طول ثابت للبطاقة */
   border-radius: 14px;
   background: rgba(14, 36, 53, 0.7);
   border: 2px solid transparent;
@@ -31,34 +38,57 @@
 
 .imageWrap {
   position: relative;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 16 / 11;
   overflow: hidden;
+  border-radius: 14px ;
+  margin-top: 15%; /* نزّل الصورة قليلاً داخل البطاقة */
+  flex: 0 0 auto; /* لا ينمو/لا ينكمش ليحافظ على المساحة */
 }
 
 .image {
+  border-radius: 14px ;
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
-  transition: transform 0.3s ease;
+  transition: transform 0.28s ease, translate 0.28s ease;
+  transform: translateY(8px) scale(1); /* تنزيل افتراضي للصورة */
 }
 
 .card:hover .image {
-  transform: scale(1.05);
+  transform: translateY(4px) scale(1.08);
 }
 
+/* عند التحويم نخفف النزول ونكبر الصورة قليلاً */
 .title {
   margin: 0;
-  padding: clamp(0.75rem, 2vw, 1rem);
+  /* خفّضنا الحشو السفلي وارتفاع العنوان لتقليل المسافة الفارغة */
+  padding: clamp(0.35rem, 1vw, 0.6rem) clamp(0.5rem, 1.5vw, 0.8rem) clamp(0.25rem, 0.8vw, 0.45rem);
   font-size: clamp(0.9rem, 1.5vw, 1rem);
   font-weight: bold;
   color: #ffffff;
   text-align: center;
+  height: 2.6rem; /* ارتفاع أقل لتقليل الفراغ السفلي */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
 
+/* استبدل نمط .questionCount ليكون شارة في الزاوية العلوية باللون البرتقالي */
 .questionCount {
-  padding: 0 clamp(0.75rem, 2vw, 1rem) clamp(0.75rem, 2vw, 1rem);
-  font-size: clamp(0.75rem, 1.5vw, 0.875rem);
-  color: rgba(255, 255, 255, 0.6);
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  min-width: 44px;
+  padding: 0.25rem 0.6rem;
+  font-size: 0.8rem;
+  color: #fff;
+  background: linear-gradient(180deg,#ff8a00,#ffb86b);
+  border-radius: 999px;
+  box-shadow: 0 6px 14px rgba(255,138,0,0.18);
   text-align: center;
+  line-height: 1;
+  z-index: 6;
 }

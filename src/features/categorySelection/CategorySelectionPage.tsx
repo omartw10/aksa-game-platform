@@ -38,20 +38,47 @@ export default function CategorySelectionPage({
     onChange(next);
   };
 
+  // Define a type that includes possible grouping properties
+  type GroupableCategory = Category & {
+    group?: string;
+    category?: string;
+    parent?: string;
+  };
+
+  // تجميع الفئات بحسب مفتاح المجموعة إن وجد (باستخدام CATEGORIES)
+  const groups = Array.from(
+    CATEGORIES.reduce((map, cat) => {
+      const groupCat = cat as GroupableCategory;
+      const key = groupCat.group ?? groupCat.category ?? groupCat.parent ?? "عام";
+      if (!map.has(key)) map.set(key, [] as Category[]);
+      map.get(key)!.push(cat);
+      return map;
+    }, new Map<string, Category[]>())
+  );
+
   return (
     <div className={styles.page}>
       <div className={styles.container}>
 
         <h2 className={styles.title}>اختر الفئات</h2>
 
+        {/* عرض مجموعات الفئات كل مجموعة داخل حاوية خاصة */}
         <div className={styles.grid}>
-          {CATEGORIES.map((category) => (
-            <CategoryCard
-              key={category.id}
-              category={category}
-              selected={selectedIds.has(category.id)}
-              onToggle={() => handleToggle(category)}
-            />
+          {groups.map(([groupName, cats]) => (
+            <section key={groupName} className={styles.groupContainer}>
+              <h3 className={styles.groupTitle}>{groupName}</h3>
+              <div className={styles.groupGrid}>
+                {cats.map((category) => (
+                  <div key={category.id} className={styles.cardFrame}>
+                    <CategoryCard
+                      category={category}
+                      selected={selectedIds.has(category.id)}
+                      onToggle={() => handleToggle(category)}
+                    />
+                  </div>
+                ))}
+              </div>
+            </section>
           ))}
         </div>
 
